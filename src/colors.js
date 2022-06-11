@@ -1,0 +1,22 @@
+"use strict";
+exports.__esModule = true;
+exports.Pico8Pallete = void 0;
+var Pico8Pallete;
+(function (Pico8Pallete) {
+    Pico8Pallete["black"] = "#000000";
+    Pico8Pallete["darkBlue"] = "#1D2B53";
+    Pico8Pallete["darkPurple"] = "#7E2553";
+    Pico8Pallete["darkGreen"] = "#008751";
+    Pico8Pallete["brown"] = "#AE5236";
+    Pico8Pallete["darkGray"] = "#5F574F";
+    Pico8Pallete["lightGray"] = "#C2C3C7";
+    Pico8Pallete["white"] = "#FFF1E8";
+    Pico8Pallete["red"] = "#FF004D";
+    Pico8Pallete["orange"] = "#FFA300";
+    Pico8Pallete["yellow"] = "#FFEC27";
+    Pico8Pallete["green"] = "#00E436";
+    Pico8Pallete["indigo"] = "#83769C";
+    Pico8Pallete["pink"] = "#FF77A8";
+    Pico8Pallete["peach"] = "#FFCCAA";
+    Pico8Pallete["blue"] = "#29ADFF";
+})(Pico8Pallete = exports.Pico8Pallete || (exports.Pico8Pallete = {}));
