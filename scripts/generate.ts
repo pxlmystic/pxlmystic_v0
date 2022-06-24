@@ -48,8 +48,8 @@ function convertGIF(root: string) {
 
 const generate = async () => {
   let experiments = [
-//    new RainbowScreenExperiment(canvas),
-//    new RainbowLinesExperiment(canvas),
+    new RainbowScreenExperiment(canvas),
+    new RainbowLinesExperiment(canvas),
     new LoaderExperiment(canvas)
   ];
   for (var experiment of experiments) {
