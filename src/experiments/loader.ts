@@ -3,7 +3,9 @@ import {Canvas, Frame} from "../svg";
 import {Pico8Pallete} from "../colors";
 import {Chance} from "chance";
 import {ColorPicker} from "../color-picker";
-import {Direction, Size, Point, Element, BlinkerElement, LoaderElement} from "../element";
+import {Direction, Size, Point, Element} from "../element";
+import {BlinkerElement} from "../elements/blinker";
+import {LoaderElement} from "../elements/loader";
 
 export class LoaderExperiment extends Experiment {
 

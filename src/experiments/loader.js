@@ -22,6 +22,8 @@ var colors_1 = require("../colors");
 var chance_1 = require("chance");
 var color_picker_1 = require("../color-picker");
 var element_1 = require("../element");
+var blinker_1 = require("../elements/blinker");
+var loader_1 = require("../elements/loader");
 var LoaderExperiment = /** @class */ (function (_super) {
     __extends(LoaderExperiment, _super);
     function LoaderExperiment(canvas) {
@@ -73,7 +75,7 @@ var LoaderExperiment = /** @class */ (function (_super) {
             var blinkerSize = blinkerSizes[this.chance.integer({ min: 0, max: blinkerSizes.length - 1 })];
             var blinkerOrigin = frame.randomPoint();
             var blinkerSpeed = blinkerSpeeds[this.chance.integer({ min: 0, max: blinkerSpeeds.length - 1 })];
-            var blinker = new element_1.BlinkerElement(blinkerSize, blinkerOrigin, colors_1.Pico8Pallete.green, blinkerSpeed[0], blinkerSpeed[1]);
+            var blinker = new blinker_1.BlinkerElement(blinkerSize, blinkerOrigin, colors_1.Pico8Pallete.green, blinkerSpeed[0], blinkerSpeed[1]);
             blinker.ticksOn = this.chance.integer({ min: 0, max: 2 });
             this.elements.push(blinker);
         }
@@ -99,7 +101,7 @@ var LoaderExperiment = /** @class */ (function (_super) {
             var direction = this.chance.weighted([element_1.Direction.horizontal, element_1.Direction.vertical], [80, 20]);
             var skipToEnd = this.chance.bool({ likelihood: 20 });
             var maxIterations = this.chance.weighted([1, 2, 3], [90, 5, 5]);
-            var loader = new element_1.LoaderElement(frame.randomPoint(), colorPicker, on, off, dots, persist, spacing, height, direction, maxIterations);
+            var loader = new loader_1.LoaderElement(frame.randomPoint(), colorPicker, on, off, dots, persist, spacing, height, direction, maxIterations);
             if (skipToEnd) {
                 loader.skipToEndBeforeTick();
                 loader.onFrames = this.chance.integer({ min: 1, max: 12 });

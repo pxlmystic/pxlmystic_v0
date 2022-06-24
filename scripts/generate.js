@@ -39,6 +39,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+var rainbow_screen_1 = require("../src/experiments/rainbow-screen");
+var rainbow_lines_1 = require("../src/experiments/rainbow-lines");
 var loader_1 = require("../src/experiments/loader");
 var path_1 = __importDefault(require("path"));
 var fs_1 = require("fs");
@@ -134,8 +136,8 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
         switch (_a.label) {
             case 0:
                 experiments = [
-                    //    new RainbowScreenExperiment(canvas),
-                    //    new RainbowLinesExperiment(canvas),
+                    new rainbow_screen_1.RainbowScreenExperiment(canvas),
+                    new rainbow_lines_1.RainbowLinesExperiment(canvas),
                     new loader_1.LoaderExperiment(canvas)
                 ];
                 _i = 0, experiments_1 = experiments;
