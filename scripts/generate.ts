@@ -1,5 +1,6 @@
 import {RainbowScreenExperiment} from "../src/experiments/rainbow-screen";
 import {RainbowLinesExperiment} from "../src/experiments/rainbow-lines";
+import {LoaderExperiment} from "../src/experiments/loader";
 import {Frame, Canvas} from "../src/svg"
 import path from "path";
 import {promises as fs} from "fs";
@@ -8,7 +9,6 @@ import sharp from "sharp";
 import {execSync} from "child_process";
 
 const OUT_DIR = path.join(__dirname, "../out");
-const TOTAL_FRAMES = 24;
 
 const canvas: Canvas = { 
   dimensions: { width: 1000, height: 1000}, 
@@ -33,8 +33,8 @@ async function writeSVGFrames(root: string, frames: Frame[]) {
   }
 }
 
-async function convertPNG(root: string) {
-  for (let i = 0; i < TOTAL_FRAMES; i++) {
+async function convertPNG(root: string, totalFrames: number) {
+  for (let i = 0; i < totalFrames; i++) {
     let svgPath = `${root}/svg/${i}.svg`;
     let pngPath = `${root}/png/${i}.png`;
     await sharp(svgPath).png().toFile(pngPath);
@@ -48,21 +48,22 @@ function convertGIF(root: string) {
 
 const generate = async () => {
   let experiments = [
-    new RainbowScreenExperiment(canvas),
-    new RainbowLinesExperiment(canvas)
+//    new RainbowScreenExperiment(canvas),
+//    new RainbowLinesExperiment(canvas),
+    new LoaderExperiment(canvas)
   ];
   for (var experiment of experiments) {
     let root = `${OUT_DIR}/${experiment.name}/${Date.now()}`;
     await createDirectories(root);
 
     let frames: Frame[] = [];
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
+    for (let i = 0; i < experiment.totalFrames; i++) {
       let frame = experiment.generateFrame();
       frames.push(frame);
     }
 
     await writeSVGFrames(root, frames); 
-    await convertPNG(root);
+    await convertPNG(root, experiment.totalFrames);
     await convertGIF(root);
   }
 };

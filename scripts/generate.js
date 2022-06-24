@@ -39,15 +39,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var rainbow_screen_1 = require("../src/experiments/rainbow-screen");
-var rainbow_lines_1 = require("../src/experiments/rainbow-lines");
+var loader_1 = require("../src/experiments/loader");
 var path_1 = __importDefault(require("path"));
 var fs_1 = require("fs");
 var fs_2 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 var child_process_1 = require("child_process");
 var OUT_DIR = path_1["default"].join(__dirname, "../out");
-var TOTAL_FRAMES = 24;
 var canvas = {
     dimensions: { width: 1000, height: 1000 },
     pixelGrid: { x: 64, y: 64 }
@@ -102,7 +100,7 @@ function writeSVGFrames(root, frames) {
         });
     });
 }
-function convertPNG(root) {
+function convertPNG(root, totalFrames) {
     return __awaiter(this, void 0, void 0, function () {
         var i, svgPath, pngPath;
         return __generator(this, function (_a) {
@@ -111,7 +109,7 @@ function convertPNG(root) {
                     i = 0;
                     _a.label = 1;
                 case 1:
-                    if (!(i < TOTAL_FRAMES)) return [3 /*break*/, 4];
+                    if (!(i < totalFrames)) return [3 /*break*/, 4];
                     svgPath = "".concat(root, "/svg/").concat(i, ".svg");
                     pngPath = "".concat(root, "/png/").concat(i, ".png");
                     return [4 /*yield*/, (0, sharp_1["default"])(svgPath).png().toFile(pngPath)];
@@ -136,8 +134,9 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
         switch (_a.label) {
             case 0:
                 experiments = [
-                    new rainbow_screen_1.RainbowScreenExperiment(canvas),
-                    new rainbow_lines_1.RainbowLinesExperiment(canvas)
+                    //    new RainbowScreenExperiment(canvas),
+                    //    new RainbowLinesExperiment(canvas),
+                    new loader_1.LoaderExperiment(canvas)
                 ];
                 _i = 0, experiments_1 = experiments;
                 _a.label = 1;
@@ -149,14 +148,14 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
             case 2:
                 _a.sent();
                 frames = [];
-                for (i = 0; i < TOTAL_FRAMES; i++) {
+                for (i = 0; i < experiment.totalFrames; i++) {
                     frame = experiment.generateFrame();
                     frames.push(frame);
                 }
                 return [4 /*yield*/, writeSVGFrames(root, frames)];
             case 3:
                 _a.sent();
-                return [4 /*yield*/, convertPNG(root)];
+                return [4 /*yield*/, convertPNG(root, experiment.totalFrames)];
             case 4:
                 _a.sent();
                 return [4 /*yield*/, convertGIF(root)];
