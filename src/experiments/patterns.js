@@ -19,16 +19,20 @@ exports.PatternsExperiment = void 0;
 var experiment_1 = require("../experiment");
 var svg_1 = require("../svg");
 var colors_1 = require("../colors");
+var chance_1 = require("chance");
 var color_picker_1 = require("../color-picker");
 var element_1 = require("../element");
 var bars_pattern_1 = require("../elements/bars-pattern");
+var checkers_pattern_1 = require("../elements/checkers-pattern");
 var circle_1 = require("../elements/circle");
+var striped_square_1 = require("../elements/striped-square");
 var PatternsExperiment = /** @class */ (function (_super) {
     __extends(PatternsExperiment, _super);
     function PatternsExperiment(canvas) {
         var _this = _super.call(this, "patterns", canvas, 10) || this;
-        _this.BORDER = 4;
+        _this.BORDER = 1;
         _this.patterns = [];
+        _this.chance = new chance_1.Chance();
         return _this;
     }
     PatternsExperiment.prototype.addBarPattern = function (direction) {
@@ -41,26 +45,62 @@ var PatternsExperiment = /** @class */ (function (_super) {
             y: this.BORDER
         };
         var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.darkGray);
-        var pattern = new bars_pattern_1.BarsPattern(size, origin, colorPicker, direction);
+        var toggle = this.chance.bool({ likelihood: 100 });
+        var pattern = new bars_pattern_1.BarsPattern(size, origin, colorPicker, direction, toggle);
         this.patterns.push(pattern);
     };
     PatternsExperiment.prototype.addBarPatterns = function () {
-        this.addBarPattern(element_1.Direction.horizontal);
-        this.addBarPattern(element_1.Direction.vertical);
+        var toggle = this.chance.bool({ likelihood: 0 });
+        if (toggle) {
+            this.addBarPattern(element_1.Direction.horizontal);
+        }
+        else {
+            this.addBarPattern(element_1.Direction.vertical);
+        }
+    };
+    PatternsExperiment.prototype.addCheckersPattern = function () {
+        var size = {
+            width: this.canvas.pixelGrid.x - this.BORDER,
+            height: this.canvas.pixelGrid.y - this.BORDER
+        };
+        var origin = {
+            x: this.BORDER,
+            y: this.BORDER
+        };
+        var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.darkGray);
+        var toggle = this.chance.bool({ likelihood: 50 });
+        var pattern = new checkers_pattern_1.CheckersPattern(size, origin, colorPicker, toggle);
+        this.patterns.push(pattern);
     };
     PatternsExperiment.prototype.addCircle = function (frame) {
         var centerPoint = frame.centerPoint();
         var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.white);
-        var circle = new circle_1.CircleElement(20, centerPoint, colorPicker);
+        var circle = new circle_1.CircleElement(40, centerPoint, colorPicker);
         this.patterns.push(circle);
+    };
+    PatternsExperiment.prototype.addStripedSquare = function () {
+        var size = {
+            width: this.canvas.pixelGrid.x - this.BORDER,
+            height: this.canvas.pixelGrid.y - this.BORDER
+        };
+        var origin = {
+            x: this.BORDER,
+            y: this.BORDER
+        };
+        var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.darkGray);
+        var pattern = new striped_square_1.StripedSquare(size, origin, colorPicker);
+        this.patterns.push(pattern);
     };
     PatternsExperiment.prototype.generateFrame = function () {
         var frame = new svg_1.Frame(this.canvas);
         frame.appendBG(colors_1.Pico8Pallete.white);
+        this.patterns = [];
         // add our first pattern
         if (this.patterns.length == 0) {
-            this.addBarPatterns();
-            this.addCircle(frame);
+            //this.addBarPatterns();
+            //this.addCheckersPattern();
+            //this.addCircle(frame);
+            this.addStripedSquare();
         }
         // render the patterns
         for (var _i = 0, _a = this.patterns; _i < _a.length; _i++) {

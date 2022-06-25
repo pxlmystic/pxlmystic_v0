@@ -1,21 +1,19 @@
 import {Direction, Element, Point, Size} from "../element";
 import {ColorPicker} from "../color-picker";
 
-export class BarsPattern extends Element {
+export class CheckersPattern extends Element {
  
   size: Size;
   origin: Point = {x: 0, y: 0};
   colorPicker: ColorPicker;
-  direction: Direction; 
   toggleOn: boolean;
 
-  constructor(size: Size, origin: Point, colorPicker: ColorPicker, direction: Direction, toggleOn?: boolean) {
+  constructor(size: Size, origin: Point, colorPicker: ColorPicker, toggleOn?: boolean) {
     super();
     this.size = size;
     this.origin = origin = origin ? origin : this.origin;
     this.colorPicker = colorPicker;
-    this.direction = direction;
-    this.toggleOn = toggleOn == true; 
+    this.toggleOn = toggleOn == true;
   }
 
   tick() {
@@ -26,7 +24,7 @@ export class BarsPattern extends Element {
     let points: Point[] = [];
     for (var x = this.origin.x; x < this.size.width; x++) {
       for (var y = this.origin.y; y < this.size.height; y++) {
-        let on: boolean = x % 2 == 1;
+        let on: boolean = (x % 2) == (y % 2 == 0 ? 1 : 0);
         on = on == this.toggleOn;
         if (on) {
           let color = this.colorPicker.nextColor();
@@ -35,16 +33,7 @@ export class BarsPattern extends Element {
             y: y,
             color: color
           };
-          if (this.direction == Direction.horizontal) {
-            let hPoint: Point = {
-              x: point.y,
-              y: point.x,
-              color: color
-            }
-            points.push(hPoint);
-          } else {
-            points.push(point);
-          }
+          points.push(point);
         }
       }
     }

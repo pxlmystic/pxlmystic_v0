@@ -15,28 +15,27 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.BarsPattern = void 0;
+exports.CheckersPattern = void 0;
 var element_1 = require("../element");
-var BarsPattern = /** @class */ (function (_super) {
-    __extends(BarsPattern, _super);
-    function BarsPattern(size, origin, colorPicker, direction, toggleOn) {
+var CheckersPattern = /** @class */ (function (_super) {
+    __extends(CheckersPattern, _super);
+    function CheckersPattern(size, origin, colorPicker, toggleOn) {
         var _this = _super.call(this) || this;
         _this.origin = { x: 0, y: 0 };
         _this.size = size;
         _this.origin = origin = origin ? origin : _this.origin;
         _this.colorPicker = colorPicker;
-        _this.direction = direction;
         _this.toggleOn = toggleOn == true;
         return _this;
     }
-    BarsPattern.prototype.tick = function () {
+    CheckersPattern.prototype.tick = function () {
         // noop for now
     };
-    BarsPattern.prototype.getPoints = function () {
+    CheckersPattern.prototype.getPoints = function () {
         var points = [];
         for (var x = this.origin.x; x < this.size.width; x++) {
             for (var y = this.origin.y; y < this.size.height; y++) {
-                var on = x % 2 == 1;
+                var on = (x % 2) == (y % 2 == 0 ? 1 : 0);
                 on = on == this.toggleOn;
                 if (on) {
                     var color = this.colorPicker.nextColor();
@@ -45,22 +44,12 @@ var BarsPattern = /** @class */ (function (_super) {
                         y: y,
                         color: color
                     };
-                    if (this.direction == element_1.Direction.horizontal) {
-                        var hPoint = {
-                            x: point.y,
-                            y: point.x,
-                            color: color
-                        };
-                        points.push(hPoint);
-                    }
-                    else {
-                        points.push(point);
-                    }
+                    points.push(point);
                 }
             }
         }
         return points;
     };
-    return BarsPattern;
+    return CheckersPattern;
 }(element_1.Element));
-exports.BarsPattern = BarsPattern;
+exports.CheckersPattern = CheckersPattern;
