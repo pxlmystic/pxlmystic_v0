@@ -38,3 +38,16 @@ export class ColorPicker {
   }
 }
 
+export class SingleColorPicker extends ColorPicker {
+  color: string;
+
+  constructor(color: string) {
+    super([color]);
+    this.color = color;
+  }
+
+  nextColor(): string {
+    return this.color;
+  }
+}
+

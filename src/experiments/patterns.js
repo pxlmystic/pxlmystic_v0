@@ -19,12 +19,14 @@ exports.PatternsExperiment = void 0;
 var experiment_1 = require("../experiment");
 var svg_1 = require("../svg");
 var colors_1 = require("../colors");
+var color_picker_1 = require("../color-picker");
 var element_1 = require("../element");
 var bars_pattern_1 = require("../elements/bars-pattern");
+var circle_1 = require("../elements/circle");
 var PatternsExperiment = /** @class */ (function (_super) {
     __extends(PatternsExperiment, _super);
     function PatternsExperiment(canvas) {
-        var _this = _super.call(this, "patterns", canvas, 1) || this;
+        var _this = _super.call(this, "patterns", canvas, 10) || this;
         _this.BORDER = 4;
         _this.patterns = [];
         return _this;
@@ -38,12 +40,19 @@ var PatternsExperiment = /** @class */ (function (_super) {
             x: this.BORDER,
             y: this.BORDER
         };
-        var pattern = new bars_pattern_1.BarsPattern(size, origin, direction);
+        var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.darkGray);
+        var pattern = new bars_pattern_1.BarsPattern(size, origin, colorPicker, direction);
         this.patterns.push(pattern);
     };
     PatternsExperiment.prototype.addBarPatterns = function () {
         this.addBarPattern(element_1.Direction.horizontal);
         this.addBarPattern(element_1.Direction.vertical);
+    };
+    PatternsExperiment.prototype.addCircle = function (frame) {
+        var centerPoint = frame.centerPoint();
+        var colorPicker = new color_picker_1.SingleColorPicker(colors_1.Pico8Pallete.white);
+        var circle = new circle_1.CircleElement(20, centerPoint, colorPicker);
+        this.patterns.push(circle);
     };
     PatternsExperiment.prototype.generateFrame = function () {
         var frame = new svg_1.Frame(this.canvas);
@@ -51,6 +60,7 @@ var PatternsExperiment = /** @class */ (function (_super) {
         // add our first pattern
         if (this.patterns.length == 0) {
             this.addBarPatterns();
+            this.addCircle(frame);
         }
         // render the patterns
         for (var _i = 0, _a = this.patterns; _i < _a.length; _i++) {
@@ -59,7 +69,7 @@ var PatternsExperiment = /** @class */ (function (_super) {
             var points = pattern.getPoints();
             for (var _b = 0, points_1 = points; _b < points_1.length; _b++) {
                 var point = points_1[_b];
-                frame.appendPixel(point.x, point.y, colors_1.Pico8Pallete.darkGray);
+                frame.appendPixel(point.x, point.y, point.color);
             }
         }
         return frame;

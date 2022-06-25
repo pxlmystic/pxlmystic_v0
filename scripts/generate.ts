@@ -2,6 +2,7 @@ import {RainbowScreenExperiment} from "../src/experiments/rainbow-screen";
 import {RainbowLinesExperiment} from "../src/experiments/rainbow-lines";
 import {LoaderExperiment} from "../src/experiments/loader";
 import {PatternsExperiment} from "../src/experiments/patterns";
+import {CircleExperiment} from "../src/experiments/circle";
 import {Frame, Canvas} from "../src/svg"
 import path from "path";
 import {promises as fs} from "fs";

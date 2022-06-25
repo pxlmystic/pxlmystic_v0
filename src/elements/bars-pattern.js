@@ -19,11 +19,12 @@ exports.BarsPattern = void 0;
 var element_1 = require("../element");
 var BarsPattern = /** @class */ (function (_super) {
     __extends(BarsPattern, _super);
-    function BarsPattern(size, origin, direction) {
+    function BarsPattern(size, origin, colorPicker, direction) {
         var _this = _super.call(this) || this;
         _this.origin = { x: 0, y: 0 };
         _this.size = size;
         _this.origin = origin = origin ? origin : _this.origin;
+        _this.colorPicker = colorPicker;
         _this.direction = direction;
         return _this;
     }
@@ -36,14 +37,17 @@ var BarsPattern = /** @class */ (function (_super) {
             for (var y = this.origin.y; y < this.size.height; y++) {
                 var on = x % 2 == 1;
                 if (on) {
+                    var color = this.colorPicker.nextColor();
                     var point = {
                         x: x,
-                        y: y
+                        y: y,
+                        color: color
                     };
                     if (this.direction == element_1.Direction.horizontal) {
                         var hPoint = {
                             x: point.y,
-                            y: point.x
+                            y: point.x,
+                            color: color
                         };
                         points.push(hPoint);
                     }
