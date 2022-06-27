@@ -43,8 +43,8 @@ async function convertPNG(root: string, totalFrames: number) {
   }
 }
 
-function convertGIF(root: string) {
-  let cmd = `convert -dispose Previous $(ls -1 ${root}/png/*.png | sort -V) -loop 0 ${root}/gif/final.gif`;
+function convertGIF(root: string, delay: string) {
+  let cmd = `convert -delay ${delay} -dispose Previous $(ls -1 ${root}/png/*.png | sort -V) -loop 0 ${root}/gif/final.gif`;
   execSync(cmd);
 }
 
@@ -67,7 +67,7 @@ const generate = async () => {
 
     await writeSVGFrames(root, frames); 
     await convertPNG(root, experiment.totalFrames);
-    await convertGIF(root);
+    await convertGIF(root, experiment.frameRate);
   }
 };
 

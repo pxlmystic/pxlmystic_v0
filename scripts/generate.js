@@ -124,8 +124,8 @@ function convertPNG(root, totalFrames) {
         });
     });
 }
-function convertGIF(root) {
-    var cmd = "convert -dispose Previous $(ls -1 ".concat(root, "/png/*.png | sort -V) -loop 0 ").concat(root, "/gif/final.gif");
+function convertGIF(root, delay) {
+    var cmd = "convert -delay ".concat(delay, " -dispose Previous $(ls -1 ").concat(root, "/png/*.png | sort -V) -loop 0 ").concat(root, "/gif/final.gif");
     (0, child_process_1.execSync)(cmd);
 }
 var generate = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -159,7 +159,7 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
                 return [4 /*yield*/, convertPNG(root, experiment.totalFrames)];
             case 4:
                 _a.sent();
-                return [4 /*yield*/, convertGIF(root)];
+                return [4 /*yield*/, convertGIF(root, experiment.frameRate)];
             case 5:
                 _a.sent();
                 _a.label = 6;
