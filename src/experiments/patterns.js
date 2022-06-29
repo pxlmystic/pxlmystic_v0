@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.PatternsExperiment = exports.Rect = void 0;
+exports.PatternsExperiment = void 0;
 var experiment_1 = require("../experiment");
 var svg_1 = require("../svg");
 var colors_1 = require("../colors");
@@ -27,18 +27,7 @@ var checkers_pattern_1 = require("../elements/checkers-pattern");
 var circle_1 = require("../elements/circle");
 var striped_square_1 = require("../elements/striped-square");
 var filled_rect_1 = require("../elements/filled-rect");
-var Rect = /** @class */ (function () {
-    function Rect(size, origin) {
-        this.size = size;
-        this.origin = origin;
-    }
-    Rect.prototype.containsPoint = function (point) {
-        return point.x >= this.origin.x && point.x <= this.origin.x + this.size.width &&
-            point.y >= this.origin.y && point.y <= this.origin.y + this.size.height;
-    };
-    return Rect;
-}());
-exports.Rect = Rect;
+var shapes_1 = require("../shapes");
 var PatternsExperiment = /** @class */ (function (_super) {
     __extends(PatternsExperiment, _super);
     function PatternsExperiment(canvas) {
@@ -135,7 +124,7 @@ var PatternsExperiment = /** @class */ (function (_super) {
                     x: this.BORDER + (row * (windowSize.width + margin)),
                     y: this.BORDER + (column * (windowSize.height + margin))
                 };
-                var rect = new Rect(windowSize, origin);
+                var rect = new shapes_1.Rect(windowSize, origin);
                 windows.push(rect);
             }
         }

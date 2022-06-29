@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var patterns_1 = require("../src/experiments/patterns");
+var patterns2_1 = require("../src/experiments/patterns2");
 var path_1 = __importDefault(require("path"));
 var fs_1 = require("fs");
 var fs_2 = require("fs");
@@ -137,7 +137,8 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
                     //new RainbowScreenExperiment(canvas),
                     //new RainbowLinesExperiment(canvas),
                     //new LoaderExperiment(canvas),
-                    new patterns_1.PatternsExperiment(canvas)
+                    //new PatternsExperiment(canvas),
+                    new patterns2_1.Patterns2Experiment(canvas)
                 ];
                 _i = 0, experiments_1 = experiments;
                 _a.label = 1;
