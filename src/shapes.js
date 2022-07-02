@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.RightEquilateralTriangle = exports.LeftEquilateralTriangle = exports.EquilateralTriangle = exports.RightTriangle = exports.Circle = exports.Rect = exports.Shape = void 0;
+exports.Hexagon = exports.RightEquilateralTriangle = exports.LeftEquilateralTriangle = exports.EquilateralTriangle = exports.RightTriangle = exports.Circle = exports.Rect = exports.Shape = void 0;
 var Shape = /** @class */ (function () {
     function Shape() {
     }
@@ -131,3 +131,44 @@ var RightEquilateralTriangle = /** @class */ (function (_super) {
     return RightEquilateralTriangle;
 }(EquilateralTriangle));
 exports.RightEquilateralTriangle = RightEquilateralTriangle;
+var Hexagon = /** @class */ (function (_super) {
+    __extends(Hexagon, _super);
+    function Hexagon(side, center) {
+        var _this = _super.call(this) || this;
+        _this.side = side;
+        _this.center = center;
+        return _this;
+    }
+    Hexagon.prototype.containsPoint = function (point) {
+        // center rect
+        var r = Math.floor(this.side / 2);
+        if (point.y > this.center.y - this.side && point.y < this.center.y + this.side && point.x > this.center.x - r && point.x < this.center.x + r) {
+            return true;
+        }
+        // top right triangle
+        var rOrigin = { x: this.center.x + r, y: this.center.y };
+        var rt = new EquilateralTriangle(this.center, this.side, this.side);
+        if (rt.containsPoint(point)) {
+            return true;
+        }
+        // bottom right triangle
+        var rb = new EquilateralTriangle(this.center, -1 * this.side, this.side);
+        if (rb.containsPoint(point)) {
+            return true;
+        }
+        // top left triangle
+        var lOrigin = { x: this.center.x - r, y: this.center.y };
+        var lt = new EquilateralTriangle(this.center, this.side, -1 * this.side);
+        if (lt.containsPoint(point)) {
+            return true;
+        }
+        // bottom left triangle
+        var lb = new EquilateralTriangle(this.center, -1 * this.side, -1 * this.side);
+        if (lb.containsPoint(point)) {
+            return true;
+        }
+        return false;
+    };
+    return Hexagon;
+}(Shape));
+exports.Hexagon = Hexagon;

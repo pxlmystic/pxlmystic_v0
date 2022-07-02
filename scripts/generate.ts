@@ -3,6 +3,7 @@ import {RainbowLinesExperiment} from "../src/experiments/rainbow-lines";
 import {LoaderExperiment} from "../src/experiments/loader";
 import {PatternsExperiment} from "../src/experiments/patterns";
 import {Patterns2Experiment} from "../src/experiments/patterns2";
+import {LinesExperiment} from "../src/experiments/lines";
 import {Frame, Canvas} from "../src/svg"
 import path from "path";
 import {promises as fs} from "fs";
@@ -50,11 +51,12 @@ function convertGIF(root: string, delay: string) {
 
 const generate = async () => {
   let experiments = [
-    new RainbowScreenExperiment(canvas),
-    new RainbowLinesExperiment(canvas),
-    new LoaderExperiment(canvas),
-    new PatternsExperiment(canvas),
-    new Patterns2Experiment(canvas)
+    //new RainbowScreenExperiment(canvas),
+    //new RainbowLinesExperiment(canvas),
+    //new LoaderExperiment(canvas),
+    //new PatternsExperiment(canvas),
+    //new Patterns2Experiment(canvas),
+    new LinesExperiment(canvas)
   ];
   for (var experiment of experiments) {
     let root = `${OUT_DIR}/${experiment.name}/${Date.now()}`;

@@ -110,3 +110,50 @@ export class RightEquilateralTriangle extends EquilateralTriangle {
   }
 }
 
+export class Hexagon extends Shape {
+  side: number;
+  center: Point
+
+  constructor(side: number, center: Point) {
+    super();
+    this.side = side;
+    this.center = center;
+  }
+
+  containsPoint(point: Point): boolean {
+    // center rect
+    let r = Math.floor(this.side / 2);
+    if (point.y > this.center.y - this.side && point.y < this.center.y + this.side && point.x > this.center.x - r && point.x < this.center.x + r) {
+       return true 
+    } 
+
+    // top right triangle
+    let rOrigin: Point = { x: this.center.x + r, y: this.center.y };
+    let rt = new EquilateralTriangle(this.center, this.side, this.side);
+    if (rt.containsPoint(point)) {
+      return true;
+    }
+
+    // bottom right triangle
+    let rb = new EquilateralTriangle(this.center, -1 * this.side, this.side);
+    if (rb.containsPoint(point)) {
+      return true;
+    }
+
+    // top left triangle
+    let lOrigin: Point = { x: this.center.x - r, y: this.center.y };
+    let lt = new EquilateralTriangle(this.center, this.side, -1 * this.side);
+    if (lt.containsPoint(point)) {
+      return true;
+    }
+
+    // bottom left triangle
+    let lb = new EquilateralTriangle(this.center, -1 * this.side, -1 * this.side);
+    if (lb.containsPoint(point)) {
+      return true;
+    }
+
+    return false; 
+  }
+}
+
