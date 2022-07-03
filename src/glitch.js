@@ -50,19 +50,21 @@ var DegradePointProcessor = /** @class */ (function (_super) {
 exports.DegradePointProcessor = DegradePointProcessor;
 var ColumnRemover = /** @class */ (function (_super) {
     __extends(ColumnRemover, _super);
-    function ColumnRemover(percent) {
+    function ColumnRemover(min, max) {
         var _this = _super.call(this) || this;
         _this.chance = new chance_1.Chance();
-        _this.percent = percent;
+        _this.min = min;
+        _this.max = max;
         return _this;
     }
     ColumnRemover.prototype.processPoints = function (points) {
         var processedPoints = [];
         var rows = {}; // {1: false}
+        var likelihood = this.chance.integer({ min: this.min, max: this.max });
         for (var _i = 0, points_2 = points; _i < points_2.length; _i++) {
             var point = points_2[_i];
             if (!rows.hasOwnProperty(point.x)) {
-                var remove = this.chance.bool({ likelihood: this.percent });
+                var remove = this.chance.bool({ likelihood: likelihood });
                 rows[point.x] = remove;
             }
             if (!rows[point.x]) {
@@ -76,19 +78,21 @@ var ColumnRemover = /** @class */ (function (_super) {
 exports.ColumnRemover = ColumnRemover;
 var RowRemover = /** @class */ (function (_super) {
     __extends(RowRemover, _super);
-    function RowRemover(percent) {
+    function RowRemover(min, max) {
         var _this = _super.call(this) || this;
         _this.chance = new chance_1.Chance();
-        _this.percent = percent;
+        _this.min = min;
+        _this.max = max;
         return _this;
     }
     RowRemover.prototype.processPoints = function (points) {
         var processedPoints = [];
         var rows = {}; // {1: false}
+        var likelihood = this.chance.integer({ min: this.min, max: this.max });
         for (var _i = 0, points_3 = points; _i < points_3.length; _i++) {
             var point = points_3[_i];
             if (!rows.hasOwnProperty(point.y)) {
-                var remove = this.chance.bool({ likelihood: this.percent });
+                var remove = this.chance.bool({ likelihood: likelihood });
                 rows[point.y] = remove;
             }
             if (!rows[point.y]) {

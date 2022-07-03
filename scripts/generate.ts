@@ -3,7 +3,7 @@ import {RainbowLinesExperiment} from "../src/experiments/rainbow-lines";
 import {LoaderExperiment} from "../src/experiments/loader";
 import {PatternsExperiment} from "../src/experiments/patterns";
 import {Patterns2Experiment} from "../src/experiments/patterns2";
-import {LinesExperiment} from "../src/experiments/lines";
+import {BWGlitchExperiment} from "../src/experiments/bw-glitch";
 import {Frame, Canvas} from "../src/svg"
 import path from "path";
 import {promises as fs} from "fs";
@@ -56,7 +56,7 @@ const generate = async () => {
     //new LoaderExperiment(canvas),
     //new PatternsExperiment(canvas),
     //new Patterns2Experiment(canvas),
-    new LinesExperiment(canvas)
+    new BWGlitchExperiment(canvas)
   ];
   for (var experiment of experiments) {
     let root = `${OUT_DIR}/${experiment.name}/${Date.now()}`;

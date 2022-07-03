@@ -30,19 +30,22 @@ export class DegradePointProcessor extends PointProcessor {
 
 export class ColumnRemover extends PointProcessor {
   chance = new Chance();
-  percent: number;
+  min: number;
+  max: number;
 
-  constructor(percent: number) {
+  constructor(min: number, max: number) {
     super();
-    this.percent = percent;
+    this.min = min;
+    this.max = max;
   }
 
   processPoints(points: Point[]): Point[] {
     let processedPoints = [];
     let rows = {}; // {1: false}
+    let likelihood = this.chance.integer({ min: this.min, max: this.max});
     for (var point of points) {
       if (!rows.hasOwnProperty(point.x)) {
-        let remove = this.chance.bool({ likelihood: this.percent});
+        let remove = this.chance.bool({ likelihood: likelihood });
         rows[point.x] = remove;
       }
       if (!rows[point.x]) {
@@ -55,19 +58,22 @@ export class ColumnRemover extends PointProcessor {
 
 export class RowRemover extends PointProcessor {
   chance = new Chance();
-  percent: number;
+  min: number;
+  max: number;
 
-  constructor(percent: number) {
+  constructor(min: number, max: number) {
     super();
-    this.percent = percent;
+    this.min = min;
+    this.max = max;
   }
 
   processPoints(points: Point[]): Point[] {
     let processedPoints = [];
     let rows = {}; // {1: false}
+    let likelihood = this.chance.integer({ min: this.min, max: this.max});
     for (var point of points) {
       if (!rows.hasOwnProperty(point.y)) {
-        let remove = this.chance.bool({ likelihood: this.percent});
+        let remove = this.chance.bool({ likelihood: likelihood});
         rows[point.y] = remove;
       }
       if (!rows[point.y]) {
