@@ -69,6 +69,15 @@ var StripedSquare = /** @class */ (function (_super) {
     StripedSquare.prototype.getPoints = function () {
         return this.pointsForSquare(this.origin, this.size, []);
     };
+    StripedSquare.prototype.containsPoint = function (point) {
+        for (var _i = 0, _a = this.getPoints(); _i < _a.length; _i++) {
+            var p = _a[_i];
+            if (p.x == point.x && p.y == point.y) {
+                return true;
+            }
+        }
+        return false;
+    };
     return StripedSquare;
 }(element_1.Element));
 exports.StripedSquare = StripedSquare;

@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var bw_glitch_1 = require("../src/experiments/bw-glitch");
+var multiline_1 = require("../src/experiments/multiline");
 var path_1 = __importDefault(require("path"));
 var fs_1 = require("fs");
 var fs_2 = require("fs");
@@ -139,7 +139,8 @@ var generate = function () { return __awaiter(void 0, void 0, void 0, function (
                     //new LoaderExperiment(canvas),
                     //new PatternsExperiment(canvas),
                     //new Patterns2Experiment(canvas),
-                    new bw_glitch_1.BWGlitchExperiment(canvas)
+                    //new BWGlitchExperiment(canvas),
+                    new multiline_1.MultilineExperiment(canvas)
                 ];
                 _i = 0, experiments_1 = experiments;
                 _a.label = 1;

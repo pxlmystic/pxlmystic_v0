@@ -24,7 +24,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
-exports.SingleColorPicker = exports.ColorPicker = void 0;
+exports.SequentialColorPicker = exports.SingleColorPicker = exports.ColorPicker = void 0;
 var chance_1 = require("chance");
 var ColorPicker = /** @class */ (function () {
     function ColorPicker(colors, weights, maxColors) {
@@ -72,3 +72,21 @@ var SingleColorPicker = /** @class */ (function (_super) {
     return SingleColorPicker;
 }(ColorPicker));
 exports.SingleColorPicker = SingleColorPicker;
+var SequentialColorPicker = /** @class */ (function (_super) {
+    __extends(SequentialColorPicker, _super);
+    function SequentialColorPicker(colors) {
+        var _this = _super.call(this, colors) || this;
+        _this.colorCursor = 0;
+        return _this;
+    }
+    SequentialColorPicker.prototype.nextColor = function () {
+        if (this.colorCursor >= this.colors.length) {
+            this.colorCursor = 0;
+        }
+        var color = this.colors[this.colorCursor];
+        this.colorCursor += 1;
+        return color;
+    };
+    return SequentialColorPicker;
+}(ColorPicker));
+exports.SequentialColorPicker = SequentialColorPicker;

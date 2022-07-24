@@ -65,5 +65,13 @@ export class StripedSquare extends Element {
   getPoints(): Point[] {
     return this.pointsForSquare(this.origin, this.size, []);
   }
+
+  containsPoint(point: Point): boolean {
+    for (var p of this.getPoints()) {
+       if (p.x == point.x && p.y == point.y) { return true; }
+    }
+    return false; 
+  }
 }
+
 

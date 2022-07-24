@@ -51,3 +51,21 @@ export class SingleColorPicker extends ColorPicker {
   }
 }
 
+export class SequentialColorPicker extends ColorPicker {
+  colorCursor: number = 0;
+ 
+  constructor(colors: string[]) {
+    super(colors);
+  }
+
+  nextColor(): string {
+    if (this.colorCursor >= this.colors.length) {
+      this.colorCursor = 0;
+    }
+
+    let color = this.colors[this.colorCursor];
+    this.colorCursor += 1; 
+    return color;
+  }
+}
+
